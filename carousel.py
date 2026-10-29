@@ -8,8 +8,9 @@ from urllib.parse import quote, urlsplit
 def images(root):
     numbered=[]
     for path in (root/'carrossel').iterdir():
-        if path.is_file() and re.fullmatch(r'\d+',path.stem) and path.suffix.lower() in ('.png','.jpg','.jpeg','.webp','.svg'):
-            numbered.append((int(path.stem),path.name))
+        number=re.fullmatch(r'(\d+)(?:[-_ ].+)?',path.stem)
+        if path.is_file() and number and path.suffix.lower() in ('.png','.jpg','.jpeg','.webp','.svg'):
+            numbered.append((int(number.group(1)),path.name))
     numbered.sort()
     if len({n for n,_ in numbered}) != len(numbered):
         raise ValueError('Há números repetidos em carrossel/ (por exemplo 01.jpg e 01.png).')

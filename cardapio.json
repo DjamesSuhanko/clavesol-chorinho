@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "categories": [
+    {
+      "id": "bcf6996f67bdb0f85a9c",
+      "title": "Choro",
+      "icon": "folder",
+      "order": 0,
+      "parentId": null,
+      "count": 3
+    }
+  ],
+  "scores": [
+    {
+      "id": "2a0661f5e98168749ffd7db7",
+      "title": "Sempre Teu",
+      "composer": "Jacob do Bandolim",
+      "filename": "score.musicxml",
+      "musicxmlUrl": "https://choro.clavesol.com.br/assets/music/musicas/sem-autor/sempre-teu/score.musicxml",
+      "sha256": "32ab7e8fe745f4a742fb2e478c7cb16059d48c069ff795c122b096b98b7e4d65",
+      "bytes": 119724,
+      "categoryIds": [
+        "bcf6996f67bdb0f85a9c"
+      ]
+    },
+    {
+      "id": "5299d67d8ed03f8416592f07",
+      "title": "Seu Lourenço no Vinho",
+      "composer": "Pixinguinha/Benedito Lacerda",
+      "filename": "score.musicxml",
+      "musicxmlUrl": "https://choro.clavesol.com.br/assets/music/musicas/sem-autor/seu-lourenco-no-vinho/score.musicxml",
+      "sha256": "145d9975302cce31934f51f59408b60d33dcaddba9ff5817a0592675e7c78a21",
+      "bytes": 79465,
+      "categoryIds": [
+        "bcf6996f67bdb0f85a9c"
+      ]
+    },
+    {
+      "id": "231cf4e4a06d3cd540230ea3",
+      "title": "Simplicidade",
+      "composer": "Jacob do Bandolim",
+      "filename": "score.musicxml",
+      "musicxmlUrl": "https://choro.clavesol.com.br/assets/music/musicas/sem-autor/simplicidade/score.musicxml",
+      "sha256": "6403c5ea1a67e692001dc0659c7db3d45402c07ac9aaa409e3a3075b68ffcb2e",
+      "bytes": 155964,
+      "categoryIds": [
+        "bcf6996f67bdb0f85a9c"
+      ]
+    }
+  ]
+}

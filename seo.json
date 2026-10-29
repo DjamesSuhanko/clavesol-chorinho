@@ -1,0 +1,10 @@
+{
+  "site_url": "https://choro.clavesol.com.br",
+  "site_name": "Clave Sol",
+  "description": "Musicas para estudos.",
+  "default_image": "clarinet.jpg",
+  "default_image_alt": "Detalhe de um clarinete",
+  "social_profiles": [
+    "https://www.youtube.com/@ClaveSolMusic"
+  ]
+}

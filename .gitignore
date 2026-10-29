@@ -1,0 +1,13 @@
+
+# Acervo Clave Sol
+dist/
+.venv/
+__pycache__/
+.importacao/
+*.mid
+*.midi
+*.mscz
+*.mscx
+.env
+*.jks
+*.keystore

@@ -1,6 +1,6 @@
 // Manual: no unexpected movement, timers or interference with the player.
 export function mountCarousel(root){
-  const slides=[...root.querySelectorAll('.carousel-slides img')];
+  const slides=[...root.querySelector('.carousel-slides').children];
   const controls=root.querySelector('.carousel-controls');
   if(slides.length<2||!controls)return;
   let index=0;

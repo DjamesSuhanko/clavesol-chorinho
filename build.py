@@ -3,6 +3,8 @@ from pathlib import Path
 import json
 import os
 import shutil
+import hashlib
+import re
 
 from score_catalog import load_catalog
 from music_pages import build_music
@@ -16,6 +18,35 @@ ROOT = Path(__file__).resolve().parent
 config = json.loads((ROOT / 'hinario.json').read_text(encoding='utf-8'))
 BASE = os.environ.get('BASE_PATH', '').rstrip('/')
 OUT = ROOT / 'dist'
+
+
+def validar_arquivos_catalogo():
+    """Exige os dois arquivos gerados pelo Mose e verifica sua integridade."""
+    catalogo = ROOT / 'cardapio.json'
+    checksum = ROOT / 'cardapio.sha256'
+    ausentes = [str(p) for p in (catalogo, checksum) if not p.is_file()]
+    if ausentes:
+        raise FileNotFoundError(
+            'Arquivos do catálogo ausentes: ' + ', '.join(ausentes) +
+            '. Gere-os no projeto Mose com scripts/gerar_catalogos.py --publish '
+            'e certifique-se de que estejam incluídos no repositório do Choro.'
+        )
+
+    partes = checksum.read_text(encoding='utf-8').strip().split()
+    if not partes or not re.fullmatch(r'[0-9a-fA-F]{64}', partes[0]):
+        raise ValueError('cardapio.sha256 não contém um SHA-256 válido.')
+    esperado = partes[0].lower()
+    encontrado = hashlib.sha256(catalogo.read_bytes()).hexdigest()
+    if encontrado != esperado:
+        raise ValueError(
+            'cardapio.sha256 não corresponde ao conteúdo de cardapio.json. '
+            'Gere novamente os dois arquivos pelo Mose antes de publicar.'
+        )
+    return catalogo, checksum
+
+
+# Valide ANTES de apagar o dist/ existente.
+ARQUIVOS_CATALOGO = validar_arquivos_catalogo()
 
 # The generic importer stores music in partituras/musicas/<grupo>/<titulo>.md.
 # Older repositories use partituras/hinos/<colecao>/<titulo>.md.
@@ -100,4 +131,10 @@ shutil.copyfile(ROOT / 'CNAME', OUT / 'CNAME')
 seo = json.loads((ROOT / 'seo.json').read_text(encoding='utf-8'))
 finish_seo(OUT, BASE, seo, aliases={route: '', 'musica': 'partituras'})
 finish_build(OUT, BASE)
+# Copie DEPOIS do build e do pós-processamento para preservar os arquivos
+# na pasta que o GitHub Pages publica.
+for origem in ARQUIVOS_CATALOGO:
+    destino = OUT / origem.name
+    shutil.copyfile(origem, destino)
+    print(f'Catálogo publicado no build: {destino}')
 print(f'{len(catalog.scores)} partituras validadas; site em {OUT}')
